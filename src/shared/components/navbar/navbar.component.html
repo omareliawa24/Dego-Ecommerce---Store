@@ -1,0 +1,92 @@
+<header class="navbar-wrapper">
+  <nav class="navbar-inner">
+
+    <!-- Logo -->
+    <a routerLink="/home" class="navbar-logo">
+      <div class="logo-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 01-8 0"/>
+        </svg>
+      </div>
+      <span class="logo-text">Shopify</span>
+    </a>
+
+    <!-- Desktop nav links (only when logged in) -->
+    @if (isLogined) {
+    <ul class="nav-links">
+      <li *ngFor="let link of navLinks">
+        <a [routerLink]="link.path" routerLinkActive="nav-link--active"
+           [routerLinkActiveOptions]="{ exact: true }"
+           class="nav-link">
+          {{ link.label }}
+        </a>
+      </li>
+    </ul>
+    }
+
+    <!-- Right actions -->
+    <div class="nav-actions">
+
+      <!-- Cart (logged in) -->
+      @if (isLogined) {
+      <a [routerLink]="'/cart'" class="cart-btn" title="Shopping Cart">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+          <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/>
+        </svg>
+        @let itemCount = (cartItemCount$ | async);
+        @if (itemCount && itemCount > 0) {
+        <span class="cart-badge">{{ itemCount }}</span>
+        }
+      </a>
+      }
+
+      <!-- Auth buttons -->
+      @if (!isLogined) {
+        <a routerLink="/login" class="btn-ghost">Login</a>
+        <a routerLink="/register" class="btn-primary">Register</a>
+      } @else {
+        <button class="btn-signout">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
+            <polyline points="16 17 21 12 16 7"/>
+            <line x1="21" y1="12" x2="9" y2="12"/>
+          </svg>
+          Sign Out
+        </button>
+      }
+
+      <!-- Hamburger (mobile) -->
+      <button class="hamburger-btn" (click)="toggleMobileMenu()" [class.is-open]="mobileOpen" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile drawer -->
+  <div class="mobile-drawer" [class.is-open]="mobileOpen">
+    <div class="mobile-drawer-inner">
+      @if (isLogined) {
+      <ul class="mobile-nav-links">
+        <li *ngFor="let link of navLinks">
+          <a [routerLink]="link.path" routerLinkActive="mobile-link--active"
+             [routerLinkActiveOptions]="{ exact: true }"
+             class="mobile-link" (click)="mobileOpen = false">
+            {{ link.label }}
+          </a>
+        </li>
+      </ul>
+      }
+      <div class="mobile-auth">
+        @if (!isLogined) {
+          <a routerLink="/login" class="btn-ghost w-full">Login</a>
+          <a routerLink="/register" class="btn-primary w-full">Register</a>
+        } @else {
+          <button class="btn-signout w-full">Sign Out</button>
+        }
+      </div>
+    </div>
+  </div>
+</header>

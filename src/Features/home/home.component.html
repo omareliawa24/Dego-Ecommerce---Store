@@ -1,0 +1,7 @@
+<app-main-slider> </app-main-slider>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6 w-full min-h-screen bg-gray-50">
+    @for (product of productsList; track product.id) {
+    <app-card [product]="product"> </app-card>
+    }
+</div>

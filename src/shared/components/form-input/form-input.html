@@ -1,0 +1,45 @@
+<div>
+  <!-- Label -->
+  <label
+    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+    ,
+    [ngClass]="{
+      'text-green-700': control.valid && control.touched,
+      'text-red-700': control.invalid && control.touched
+    }"
+  >
+    {{ label }}
+  </label>
+
+  <!-- Input -->
+  <input
+    [type]="type"
+    [placeholder]="placeholder"
+    [formControl]="control"
+    class="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white"
+    [ngClass]="{
+      'border-green-700': control.valid && control.touched,
+      'border-red-700': control.invalid && control.touched
+    }"
+  />
+
+  <!-- Error Messages -->
+
+  @if (control.errors && control.touched) {
+  <ul class="text-red-500 mt-1.5 text-sm space-y-1">
+    @if (control.getError('required')) {
+    <li>⚠ This field is required</li>
+    } @if (control.getError('minlength')) {
+    <li>⚠ Minimum length is {{ control.getError('minlength').requiredLength }} characters</li>
+    } @if (control.getError('maxlength')) {
+    <li>
+      ⚠ Maximum allowed length is {{ control.getError('maxlength').requiredLength }} characters
+    </li>
+    } @if (control.getError('email')) {
+    <li>⚠ Enter a valid email address</li>
+    } @if (control.getError('pattern')) {
+    <li>⚠ Invalid pattern format</li>
+    }
+  </ul>
+  }
+</div>

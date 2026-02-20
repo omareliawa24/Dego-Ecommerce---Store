@@ -1,0 +1,91 @@
+/* Cart Item Component Styles */
+
+:host {
+  display: block;
+}
+
+/* Animation for item removal */
+@keyframes slideOutLeft {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleQuantity {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* Apply animations */
+.cart-item-enter {
+  animation: slideInRight 0.3s ease-out;
+}
+
+.cart-item-exit {
+  animation: slideOutLeft 0.3s ease-in;
+}
+
+.quantity-change {
+  animation: scaleQuantity 0.3s ease-out;
+}
+
+/* Button hover effects */
+button {
+  transition: all 0.2s ease;
+}
+
+button:hover:not(:disabled) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+button:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+/* Remove button specific styles */
+button[aria-label="Remove item"] {
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button[aria-label="Remove item"]:hover {
+  background-color: rgba(239, 68, 68, 0.1);
+  transform: scale(1.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  :host {
+    margin-bottom: 12px;
+  }
+
+  button[aria-label="Remove item"] {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+  }
+}

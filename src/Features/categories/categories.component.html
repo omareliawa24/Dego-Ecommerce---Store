@@ -1,0 +1,99 @@
+<div class="categories-page">
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="header-inner">
+      <div class="header-text">
+        <span class="header-eyebrow">Browse by</span>
+        <h1 class="header-title">Categories</h1>
+        <p class="header-sub">Explore our curated collections across every style and need</p>
+      </div>
+      <!-- Search bar -->
+      <div class="header-search">
+        <span class="search-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </span>
+        <input type="text" class="search-input" placeholder="Search categories..." [(ngModel)]="searchTerm" />
+        @if (searchTerm) {
+          <button class="search-clear" (click)="searchTerm = ''" type="button">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        }
+      </div>
+    </div>
+    <!-- Decorative blobs -->
+    <div class="header-blob-1"></div>
+    <div class="header-blob-2"></div>
+  </div>
+
+  <!-- Categories Grid -->
+  <div class="categories-container">
+
+    <!-- Loading state -->
+    @if (isLoading) {
+      <div class="skeleton-grid">
+        <div class="skeleton-card" *ngFor="let i of [1,2,3,4,5,6,7,8]">
+          <div class="skeleton-img"></div>
+          <div class="skeleton-line long"></div>
+          <div class="skeleton-line short"></div>
+        </div>
+      </div>
+    }
+
+    <!-- Empty state -->
+    @else if (filteredCategories.length === 0) {
+      <div class="empty-state">
+        <div class="empty-icon">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </div>
+        <h3 class="empty-title">No categories found</h3>
+        <p class="empty-sub">Try a different search term</p>
+        <button class="empty-reset" (click)="searchTerm = ''">Clear Search</button>
+      </div>
+    }
+
+    <!-- Grid -->
+    @else {
+      <div class="categories-grid">
+        @for (category of filteredCategories; track category.slug) {
+          <div class="category-card" [routerLink]="['/categories', category.slug]" (mouseenter)="hoveredId = category.slug" (mouseleave)="hoveredId = ''">
+
+            <!-- Image -->
+            <div class="card-image-wrap">
+              <div class="card-img-bg" [style.background]="category.gradient"></div>
+              <img [src]="category.image" [alt]="category.name" class="card-img" loading="lazy" />
+              <div class="card-overlay">
+                <span class="explore-label">Explore</span>
+              </div>
+              <!-- Item count badge -->
+              <div class="count-badge">{{ category.count }} items</div>
+            </div>
+
+            <!-- Content -->
+            <div class="card-content">
+              <div class="card-icon" [style.background]="category.iconBg">
+                <span [innerHTML]="category.icon"></span>
+              </div>
+              <div class="card-text">
+                <h3 class="card-name">{{ category.name }}</h3>
+                <p class="card-desc">{{ category.desc }}</p>
+              </div>
+              <div class="card-arrow">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"/>
+                  <polyline points="12 5 19 12 12 19"/>
+                </svg>
+              </div>
+            </div>
+
+          </div>
+        }
+      </div>
+    }
+
+  </div>
+</div>

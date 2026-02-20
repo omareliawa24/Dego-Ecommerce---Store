@@ -1,0 +1,220 @@
+<div class="register-page">
+
+  <!-- Left decorative panel -->
+  <div class="login-panel">
+    <div class="panel-content">
+      <div class="panel-logo">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 01-8 0"/>
+        </svg>
+      </div>
+      <h2 class="panel-title">Join Shopify today</h2>
+      <p class="panel-sub">Create your free account and start shopping the best products from around the world.</p>
+
+      <div class="panel-steps">
+        <div class="step-item" *ngFor="let step of steps; let i = index">
+          <div class="step-number">{{ i + 1 }}</div>
+          <div class="step-text">
+            <span class="step-title">{{ step.title }}</span>
+            <span class="step-desc">{{ step.desc }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+    </div>
+  </div>
+
+  <!-- Right form panel -->
+  <div class="login-form-side">
+    <div class="form-card">
+
+      <!-- Brand -->
+      <div class="form-brand">
+        <div class="brand-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <path d="M16 10a4 4 0 01-8 0"/>
+          </svg>
+        </div>
+        <span class="brand-name">Shopify</span>
+      </div>
+
+      <h1 class="form-title">Create your account</h1>
+      <p class="form-sub">Already have an account? <a routerLink="/login" class="form-link">Sign in</a></p>
+
+      <!-- Form -->
+      <form [formGroup]="registerForm" (ngSubmit)="SubmitForm()" class="form-body" novalidate>
+
+        <!-- Name & Phone row -->
+        <div class="fields-row">
+
+          <!-- Name -->
+          <div class="field-group"
+               [class.field-valid]="registerForm.get('name')?.valid && registerForm.get('name')?.touched"
+               [class.field-error]="registerForm.get('name')?.invalid && registerForm.get('name')?.touched">
+            <label for="name" class="field-label">Full name</label>
+            <div class="field-input-wrapper">
+              <span class="field-icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+                  <circle cx="12" cy="7" r="4"/>
+                </svg>
+              </span>
+              <input formControlName="name" type="text" id="name" placeholder="John Doe" class="field-input" autocomplete="name"/>
+              <span class="field-status-icon valid-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+              <span class="field-status-icon error-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>
+            </div>
+            @if (registerForm.get('name')?.errors && registerForm.get('name')?.touched) {
+              <span class="field-hint">
+                @if (registerForm.get('name')?.getError('required')) { Name is required }
+                @else if (registerForm.get('name')?.getError('minlength')) { At least 3 characters }
+                @else if (registerForm.get('name')?.getError('maxlength')) { Max 20 characters }
+              </span>
+            }
+          </div>
+
+          <!-- Phone -->
+          <div class="field-group"
+               [class.field-valid]="registerForm.get('phone')?.valid && registerForm.get('phone')?.touched"
+               [class.field-error]="registerForm.get('phone')?.invalid && registerForm.get('phone')?.touched">
+            <label for="phone" class="field-label">Phone number</label>
+            <div class="field-input-wrapper">
+              <span class="field-icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+                </svg>
+              </span>
+              <input formControlName="phone" type="text" id="phone" placeholder="01xxxxxxxxx" class="field-input" autocomplete="tel"/>
+              <span class="field-status-icon valid-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+              <span class="field-status-icon error-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>
+            </div>
+            @if (registerForm.get('phone')?.errors && registerForm.get('phone')?.touched) {
+              <span class="field-hint">
+                @if (registerForm.get('phone')?.getError('required')) { Phone is required }
+                @else if (registerForm.get('phone')?.getError('pattern')) { Valid Egyptian number (01x) }
+              </span>
+            }
+          </div>
+
+        </div>
+
+        <!-- Email -->
+        <div class="field-group"
+             [class.field-valid]="registerForm.get('email')?.valid && registerForm.get('email')?.touched"
+             [class.field-error]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+          <label for="email" class="field-label">Email address</label>
+          <div class="field-input-wrapper">
+            <span class="field-icon">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </span>
+            <input formControlName="email" type="email" id="email" placeholder="name@company.com" class="field-input" autocomplete="email"/>
+            <span class="field-status-icon valid-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span class="field-status-icon error-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>
+          </div>
+          @if (registerForm.get('email')?.errors && registerForm.get('email')?.touched) {
+            <span class="field-hint">Please enter a valid email address</span>
+          }
+        </div>
+
+        <!-- Password & Confirm row -->
+        <div class="fields-row">
+
+          <!-- Password -->
+          <div class="field-group"
+               [class.field-valid]="registerForm.get('password')?.valid && registerForm.get('password')?.touched"
+               [class.field-error]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+            <label for="password" class="field-label">Password</label>
+            <div class="field-input-wrapper">
+              <span class="field-icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                  <path d="M7 11V7a5 5 0 0110 0v4"/>
+                </svg>
+              </span>
+              <input formControlName="password" [type]="showPassword ? 'text' : 'password'" id="password" placeholder="••••••••" class="field-input" autocomplete="new-password"/>
+              <button type="button" class="toggle-password" (click)="showPassword = !showPassword" tabindex="-1">
+                <svg *ngIf="!showPassword" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                <svg *ngIf="showPassword" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+              </button>
+            </div>
+            @if (registerForm.get('password')?.errors && registerForm.get('password')?.touched) {
+              <span class="field-hint">Min 6 characters (letters & numbers)</span>
+            }
+          </div>
+
+          <!-- Confirm Password -->
+          <div class="field-group"
+               [class.field-valid]="registerForm.get('rePassword')?.valid && registerForm.get('rePassword')?.touched && !registerForm.errors?.['mismatch']"
+               [class.field-error]="(registerForm.get('rePassword')?.invalid && registerForm.get('rePassword')?.touched) || (registerForm.errors?.['mismatch'] && registerForm.get('rePassword')?.touched)">
+            <label for="rePassword" class="field-label">Confirm password</label>
+            <div class="field-input-wrapper">
+              <span class="field-icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+              </span>
+              <input formControlName="rePassword" [type]="showRePassword ? 'text' : 'password'" id="rePassword" placeholder="••••••••" class="field-input" autocomplete="new-password"/>
+              <button type="button" class="toggle-password" (click)="showRePassword = !showRePassword" tabindex="-1">
+                <svg *ngIf="!showRePassword" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                <svg *ngIf="showRePassword" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+              </button>
+            </div>
+            @if (registerForm.errors?.['mismatch'] && registerForm.get('rePassword')?.touched) {
+              <span class="field-hint">Passwords do not match</span>
+            }
+          </div>
+
+        </div>
+
+        <!-- Password strength -->
+        @if (registerForm.get('password')?.value) {
+          <div class="strength-bar-wrapper">
+            <div class="strength-bar">
+              <div class="strength-fill" [style.width]="strengthWidth" [class]="strengthClass"></div>
+            </div>
+            <span class="strength-label" [class]="strengthClass">{{ strengthLabel }}</span>
+          </div>
+        }
+
+        <!-- Server error -->
+        @if (MsgError) {
+          <div class="error-alert">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            {{ MsgError }}
+          </div>
+        }
+
+        <!-- Submit -->
+        <button type="submit" class="submit-btn" [class.is-loading]="isLoading" [disabled]="isLoading">
+          <span class="btn-label">
+            @if (isLoading) {
+              <svg class="spin-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12a9 9 0 11-6.219-8.56"/>
+              </svg>
+              Creating account...
+            } @else {
+              Create Account
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+                <polyline points="12 5 19 12 12 19"/>
+              </svg>
+            }
+          </span>
+          <div class="btn-shimmer"></div>
+        </button>
+
+      </form>
+    </div>
+  </div>
+
+</div>
