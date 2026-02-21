@@ -23,6 +23,33 @@
     }"
   />
 
+  @if (element === 'input') {
+  <input
+    [class]="{
+      'border-green-700': control.valid,
+      'border-red-700': control.invalid && control.touched
+    }"
+    [formControl]="control"
+    [type]="type || (flag ? 'password' : 'text')"
+    [id]="id"
+    class="main-input peer"
+    placeholder=" "
+  />
+}
+@else if (element === "text") {
+  <textarea
+    [class]="{
+      'border-green-700': control.valid,
+      'border-red-700': control.invalid && control.touched
+    }"
+    [formControl]="control"
+    [id]="id"
+    class="main-input peer"
+    placeholder=" "
+  ></textarea>
+}
+
+
   <!-- Error Messages -->
 
   @if (control.errors && control.touched) {

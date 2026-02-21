@@ -16,6 +16,7 @@ import { SearchPipe } from '../../shared/pipes/search-pipe';
 export class ProductsComponent {
   product: any;
   private readonly productsService = inject(Products);
+
   productsList: Product[] = [];
 
   pageSize!: number
@@ -37,9 +38,9 @@ export class ProductsComponent {
 
       next: (data) => {
         this.productsList = data;
-        this.pageSize = data.metadata.limit;
-        this.p = data.metadata.currentPage;
-        this.total = data.result;
+        this.pageSize = data.limit;
+        this.p = data.currentPage;
+        this.total = data.total;
       },
 
       error: (error) => {

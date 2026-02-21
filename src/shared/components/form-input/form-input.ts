@@ -14,6 +14,10 @@ export class FormInput {
   @Input() type!: string;
   @Input() placeholder!: string;
   @Input() control!: FormControl;
+  @Input() id!: string;
+  @Input() element: string = 'input';
+
+  flag: boolean = true;
 
 
 }

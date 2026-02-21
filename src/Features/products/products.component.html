@@ -1,10 +1,21 @@
-<input type="text" [(ngModel)]="text" placeholder="Search products..." class="mb-4 p-2 border border-gray-300 rounded w-full" />
-<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6 w-full min-h-screen bg-gray-50">
-    @for (product of productsList | search:text | paginate: { id: 'foo', itemsPerPage: pageSize, currentPage: p, totalItems: total }; track product.id) {
+<input
+  type="text"
+  [(ngModel)]="text"
+  placeholder="Search products..."
+  class="mb-4 p-2 border border-gray-300 rounded w-full"
+/>
+<div
+  class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6 w-full min-h-screen bg-gray-50"
+>
+  @for (
+    product of productsList
+      | search: text
+      | paginate: { id: 'foo', itemsPerPage: pageSize, currentPage: p, totalItems: total };
+    track product.id
+  ) {
     <app-card [product]="product"> </app-card>
-    }
+  }
 </div>
-
 
 <!-- pagination controls -->
 <pagination-controls

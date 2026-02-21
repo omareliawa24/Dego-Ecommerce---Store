@@ -133,24 +133,27 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Proceed to checkout
-   * TODO: Navigate to checkout page with cart data
-   */
-  proceedToCheckout(): void {
-    if (this.cartItems.length === 0) {
+    * Proceed to checkout - send product ids to checkout route
+    */
+    proceedToCheckout(): void {
+     if (this.cartItems.length === 0) {
       this.toastService.show('Your cart is empty', 'error', 2000);
       return;
+     }
+
+     this.isLoadingCheckout = true;
+
+     // Save cart snapshot into CheckoutService for later use (optional)
+     this.checkoutService.setCartSnapshot(this.cartState);
+
+     // Collect product ids and send them to checkout via query params
+     const productIds: number[] = this.cartItems.map(i => i.id);
+     this.router
+      .navigate(['/checkout'], { queryParams: { ids: productIds.join(',') } })
+      .finally(() => {
+        this.isLoadingCheckout = false;
+      });
     }
-
-    this.isLoadingCheckout = true;
-    // Save cart snapshot into CheckoutService for later use (optional)
-    this.checkoutService.setCartSnapshot(this.cartState);
-
-    // navigate to checkout page
-    this.router.navigate(['/checkout']).finally(() => {
-      this.isLoadingCheckout = false;
-    });
-  }
 
   /**
    * Get amount needed for free shipping

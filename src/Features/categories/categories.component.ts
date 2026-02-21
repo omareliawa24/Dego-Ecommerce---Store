@@ -15,7 +15,7 @@ export interface Category {
 @Component({
   selector: 'app-categories',
   standalone: true,
-  imports: [RouterLink, NgFor, NgIf, FormsModule],
+  imports: [RouterLink, FormsModule],
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.css']
 })

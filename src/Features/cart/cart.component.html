@@ -1,6 +1,6 @@
 <div class="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
   <div class="max-w-7xl mx-auto">
-    <!-- Page Header -->
+    Page Header
     <div class="flex justify-between items-center mb-8">
       <div>
         <h1 class="text-4xl font-bold text-gray-900">Shopping Cart</h1>
@@ -127,22 +127,7 @@
               </div>
             }
 
-            <!-- Shipping -->
-            <div class="flex justify-between items-center py-4 border-b border-gray-200">
-              <span class="text-gray-600">
-                Shipping
-                @if (hasFreeShipping()) {
-                  <span class="text-green-600 text-xs ml-1">(FREE)</span>
-                }
-              </span>
-              <span class="font-semibold text-gray-900">
-                @if (cartState.shippingCost === 0) {
-                  FREE
-                } @else {
-                  {{ formatPrice(cartState.shippingCost) }}
-                }
-              </span>
-            </div>
+
 
             <!-- Free Shipping Message -->
             @if (!hasFreeShipping() && getAmountForFreeShipping() > 0) {
